@@ -1,0 +1,89 @@
+<%-- 
+    Document   : personas
+    Created on : 14/02/2022, 10:58:44 AM
+    Author     : DAVID
+--%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="styl1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Personas</title>
+    </head>
+
+        <%@include file="header.jsp" %>
+        <main>
+            <div class="container-lg" style="background: white;padding: 20px; border-radius: 30px">
+                <form:form commandName="persona">
+                    <div class="mb-3" style="background: whitesmoke;padding: 20px;">
+                        <div class="mb-3 row">
+                        <form:label path="nombrep" cssClass="col-sm-2 col-form-label">Nombre:</form:label>
+                            <div class="col-sm-10">
+                            <form:input path="nombrep" cssClass="form-control" placeholder="ingrese su nombre"></form:input>
+                            <form:errors path='nombrep' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                        <form:label path="apellidop" cssClass="col-sm-2 col-form-label">Apellido:</form:label>
+                            <div class="col-sm-10">
+                            <form:input path="apellidop" cssClass="form-control" placeholder="ingrese su apellido"></form:input>
+                            <form:errors path='apellidop' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                        <form:label path="telefonop" cssClass="col-sm-2 col-form-label">Telefono:</form:label>
+                            <div class="col-sm-10">
+                            <form:input path="telefonop" cssClass="form-control" placeholder="ingrese su telefono"></form:input>
+                            <form:errors path='telefonop' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                        <form:label path="correop" cssClass="col-sm-2 col-form-label">Correo:</form:label>
+                            <div class="col-sm-10">
+                            <form:input path="correop" cssClass="form-control" placeholder="ingrese su correo"></form:input>
+                            <form:errors path='correop' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                        <form:label path="edadp" cssClass="col-sm-2 col-form-label">Edad:</form:label>
+                            <div class="col-sm-10">
+                        <form:input path="edadp" cssClass="form-control" placeholder="ingrese su edad"></form:input>
+                        <form:errors path='edadp' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                        <form:label path="direccionp" cssClass="col-sm-2 col-form-label">Direccion:</form:label>
+                            <div class="col-sm-10">
+                        <form:input path="direccionp" cssClass="form-control" placeholder="ingrese su direccion"></form:input>
+                        <form:errors path='direccionp' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                        <form:label path="ciudadp" cssClass="col-sm-2 col-form-label">Ciudad:</form:label>
+                            <div class="col-sm-10">
+                        <form:input path="ciudadp" cssClass="form-control" placeholder="ingrese su ciudad"></form:input>
+                        <form:errors path='ciudadp' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                        <form:label path="generop" cssClass="col-sm-2 col-form-label">Genero:</form:label>
+                            <div class="col-sm-10">
+                            <form:input path="generop" cssClass="form-control" placeholder="ingrese su genero"></form:input>
+                            <form:errors path='generop' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            </div>
+                        </div>
+                        <br>
+                        <form:button name="ingresar" class="btn btn-outline-secondary">Ingresar</form:button>
+                        <a class="btn btn-outline-secondary" href="index.htm">Regresar</a>
+                        <a class="btn btn-outline-secondary" href="listaPersonas.htm">Listar</a>
+                    </div>
+                </form:form>    
+            </div>
+        </main>
+        <%@include file="footer.jsp" %>
+
+</html>
