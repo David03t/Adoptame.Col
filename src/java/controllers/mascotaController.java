@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author DAVID
  */
-    @RequestMapping(value = "mascotas.htm")
+
 @Controller
 public class mascotaController {
         private MascotaBeanValidation vistamascotas;
@@ -28,25 +28,24 @@ public class mascotaController {
             this.vistamascotas = new MascotaBeanValidation();
         }
         
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value ="mascotas.htm", method = RequestMethod.GET)
     public ModelAndView masform(){
-    return new ModelAndView("views/mascotas", "mascotas", new MascotaBean());
+    return new ModelAndView("views/mascotas", "mascota", new MascotaBean());
     }
-    @RequestMapping( method = RequestMethod.POST)
+    @RequestMapping(value ="mascotas.htm", method = RequestMethod.POST)
     public ModelAndView vistamascotas (
-            @ModelAttribute("mascotas")
-            MascotaBean masform,
+            @ModelAttribute("mascota") MascotaBean masform,
             BindingResult result,
             SessionStatus status){
-        this.vistamascotas.validate("mascctas", result);
+        this.vistamascotas.validate(masform, result);
         if(result.hasErrors()){
             ModelAndView mav = new ModelAndView();
-            mav.addObject("mascotas", new MascotaBean());
-            mav.setViewName("viewa/mascotas");
+            mav.addObject("mascota", new MascotaBean());
+            mav.setViewName("views/mascotas");
             return mav;
         }else{
             ModelAndView mav = new ModelAndView();
-            mav.setViewName("viewa/vistaMascotas");
+            mav.setViewName("views/vistaMascotas");
             mav.addObject("nombre", masform.getNombre());
             mav.addObject("categoria", masform.getCategoria());
             mav.addObject("raza", masform.getRaza());

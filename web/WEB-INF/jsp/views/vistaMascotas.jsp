@@ -3,7 +3,8 @@
     Created on : 14/02/2022, 03:25:17 PM
     Author     : DAVID
 --%>
-
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
