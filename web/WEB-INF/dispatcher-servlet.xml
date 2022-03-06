@@ -33,6 +33,9 @@
                 <prop key="borrarMascota.htm">mascotasDBController</prop>
                 <prop key="updateMascota.htm">mascotasDBController</prop>
                 <prop key="listaAdopcion.htm">AdopcionDBController</prop>
+                <prop key="addAdopcion.htm">AdopcionDBController</prop>
+                <prop key="updateAdopcion.htm">AdopcionDBController</prop>
+                <prop key="borrarAdopcion.htm">AdopcionDBController</prop>
             </props>
         </property>
     </bean>

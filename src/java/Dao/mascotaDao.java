@@ -14,15 +14,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *
  * @author DAVID
  */
-public class UsuarioDao {
+public class mascotaDao {
     JdbcTemplate jdbcTemplate;
     conectarDB conDB = new conectarDB();
     
-    public List ConsultarUsuariosAdopcion(){
+    public List ConsultarMascotasAdopcion(){
         List datos = new ArrayList();
         this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
-        String sql= "Select * from usuario";
-        datos= this.jdbcTemplate.queryForList(sql);
+        String sql= "Select * from mascota";
+        datos = this.jdbcTemplate.queryForList(sql);
         return datos;
     }
 }

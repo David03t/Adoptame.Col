@@ -3,10 +3,11 @@
     Created on : 14/02/2022, 10:50:18 AM
     Author     : DAVID
 --%>
-
-<%@page import="models.daoBean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@page import="models.daoBean"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +22,9 @@
         <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css"></link>
         <script>
             $(document).ready(function() {
-                $('.formularios').DataTable();
+                $('.formularios').DataTable({
+                    "lengthMenu": [[5, 10, 20, 50 , -1],[5,10,20,50,"All"]]
+                });
             } );
             </script>
     </head>

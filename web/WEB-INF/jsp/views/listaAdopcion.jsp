@@ -15,7 +15,7 @@
         <%@include file="header.jsp" %>
             <div class="container-lg" style="background: white;padding: 20px; border-radius: 30px">
                 <table class="formularios table">
-                    <a href="addMascotas.htm" class="btn btn-outline-primary" style="float: left; margin: 20px">Añadir</a>
+                    <a href="addAdopcion.htm" class="btn btn-outline-primary" style="float: left; margin: 20px">Añadir</a>
                     <thead>
                       <tr>
                         <th scope="col">ID</th>

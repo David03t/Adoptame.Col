@@ -6,6 +6,7 @@
 
 package Dao;
 
+import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
