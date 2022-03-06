@@ -32,6 +32,7 @@
                 <prop key="addMascotas.htm">mascotasDBController</prop>
                 <prop key="borrarMascota.htm">mascotasDBController</prop>
                 <prop key="updateMascota.htm">mascotasDBController</prop>
+                <prop key="listaAdopcion.htm">AdopcionDBController</prop>
             </props>
         </property>
     </bean>
@@ -53,5 +54,6 @@
     <bean name="usuario_mascotaController" class="controllers.usuario_mascotaController"/>
     <bean name="personasDBController" class="controllers.personasDBController"/>
     <bean name="mascotasDBController" class="controllers.mascotasDBController"/>
+    <bean name="AdopcionDBController" class="controllers.AdopcionDBController"/>
     
 </beans>

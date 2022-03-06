@@ -36,6 +36,7 @@ CREATE TABLE usuario_mascota(
 	id INTEGER PRIMARY KEY not null auto_increment,
 	id_usuario INTEGER not null,
 	id_mascota INTEGER not null,
+	fecha_de_adopcion datetime not null,
 	FOREIGN KEY (id_usuario) REFERENCES usuario(id),
 	FOREIGN KEY (id_mascota) REFERENCES mascota(id)
 );
@@ -52,8 +53,8 @@ INSERT into mascota (nombre,categoria,raza,edad, descripcion,genero)
 	("Nala","Gata","Siamesez",1,"Le agrada mucho dormir","Hembra"),
 	("Sombra","Gata","Ruso azul",4,"Esta Gorada","Hembra");
 	
-INSERT into usuario_mascota(id_usuario, id_mascota)
-	values (3,2),
-	(1,4),
-	(2,1),
-	(4,3);
+INSERT into usuario_mascota(id_usuario, id_mascota, fecha_de_adopcion)
+	values (3,2,NOW()),
+	(1,4,NOW()),
+	(2,1,NOW()),
+	(4,3,NOW());

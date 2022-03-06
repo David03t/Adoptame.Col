@@ -21,14 +21,16 @@ public class usuario_mascotaBean {
     private int id;
     private String id_usuario;
     private String id_mascota;
+    private String fecha_de_adopcion;
 
     public usuario_mascotaBean() {
     }
 
-    public usuario_mascotaBean(int id, String id_usuario, String id_mascota) {
+    public usuario_mascotaBean(int id, String id_usuario, String id_mascota, String fecha_de_adopcion) {
         this.id = id;
         this.id_usuario = id_usuario;
         this.id_mascota = id_mascota;
+        this.fecha_de_adopcion = fecha_de_adopcion;
     }
 
     public int getId() {
@@ -54,6 +56,15 @@ public class usuario_mascotaBean {
     public void setId_mascota(String id_mascota) {
         this.id_mascota = id_mascota;
     }
+
+    public String getFecha_de_adopcion() {
+        return fecha_de_adopcion;
+    }
+
+    public void setFecha_de_adopcion(String fecha_de_adopcion) {
+        this.fecha_de_adopcion = fecha_de_adopcion;
+    }
+
     
 
     
