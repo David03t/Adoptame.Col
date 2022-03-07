@@ -34,7 +34,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.htm">Adoptame</a>
                     <a class="navbar-brand" href="#">Acceder</a>
-                    <%--                    <%
+                                    <%
             if(daoBean.conecta()!=null){
         %>
         <p class="navbar-brand" style="margin-top: 15px">DB:<img src="<c:url value="public/images/true.png"/>" height="20px" width="20px"/></p> 
@@ -42,7 +42,7 @@
             }else{
         %>
        <p class="navbar-brand" style="margin-top: 15px">DB:<img src="<c:url value="public/images/false.png"/>" height="20px" width="30px"/></p> 
-        <%}%> --%>
+        <%}%>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>

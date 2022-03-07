@@ -6,7 +6,6 @@
 
 package Dao;
 
-import Dao.conectarDB;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,10 +19,10 @@ public class adopcionDao {
     conectarDB conDB = new conectarDB();
     
     public List ConsultarUsuariosAdopcion(){
-        List fecha = new ArrayList();
+        List datos = new ArrayList();
         this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
-        String sql= "Select NOW()";
-        fecha= this.jdbcTemplate.queryForList(sql);
-        return fecha;
+        String sql= "Select * from usuario_mascota";
+        datos= this.jdbcTemplate.queryForList(sql);
+        return datos;
     }
 }

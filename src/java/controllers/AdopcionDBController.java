@@ -39,6 +39,7 @@ public class AdopcionDBController {
         jdbcTemplate = new JdbcTemplate(con.conDB());
         this.vistaAdopcion = new usuario_mascotaBeanValidation();
     }
+    
     @RequestMapping("listaAdopcion")
     public ModelAndView formAdopcion(){
         ModelAndView mav = new ModelAndView();
@@ -48,6 +49,7 @@ public class AdopcionDBController {
         mav.setViewName("views/listaAdopcion");
         return mav;
     }
+    
     @RequestMapping(value = "addAdopcion.htm",method = RequestMethod.GET)
     public ModelAndView addAdopcion(){
         ModelAndView mav = new ModelAndView();
@@ -61,18 +63,19 @@ public class AdopcionDBController {
         mav.setViewName("views/addAdopcion");
         return mav;
     }
+    
     @RequestMapping(value = "addAdopcion.htm",method = RequestMethod.POST)
     public ModelAndView addAdopcion(
             @ModelAttribute("adopcion") usuario_mascotaBean per_masform){
-        ModelAndView mav = new ModelAndView();
+            ModelAndView mav = new ModelAndView();
             String sql = "insert into usuario_mascota (id_usuario, id_mascota) "
                 + "values (?,?)";
             jdbcTemplate.update(sql, per_masform.getId_usuario(), per_masform.getId_mascota());
             mav.addObject("adopcion", new usuario_mascotaBean());
             mav.setViewName("redirect:/listaAdopcion.htm");
-            return mav;
-        
+            return mav; 
     }
+    
     @RequestMapping("borrarAdopcion.htm")
     public ModelAndView borrarAdopcion(HttpServletRequest req){
         ModelAndView mav = new ModelAndView();
@@ -83,14 +86,18 @@ public class AdopcionDBController {
         return mav;
     }
     
-    
-    
     @RequestMapping(value = "updateAdopcion.htm", method = RequestMethod.GET)
     public ModelAndView ActualizarAdopcion (HttpServletRequest req){
         ModelAndView mav = new ModelAndView();
         int id = Integer.parseInt(req.getParameter("id"));
         usuario_mascotaBean user_masc = consultarAdopcionId (id);
         mav.addObject("adopcion", user_masc);
+        UsuarioDao user = new UsuarioDao();
+        List codUsuario = user.ConsultarUsuariosAdopcion();
+        mav.addObject("listaUsuarios",codUsuario);
+        mascotaDao mascot = new mascotaDao();
+        List codMascota = mascot.ConsultarMascotasAdopcion();
+        mav.addObject("listaMascotas", codMascota);
         mav.setViewName("views/updateAdopcion");
         return mav;
     }
@@ -98,7 +105,6 @@ public class AdopcionDBController {
         usuario_mascotaBean user_masc = new usuario_mascotaBean();
         String sql = "Select * from usuario_mascota where id = "+ id;
         return (usuario_mascotaBean)jdbcTemplate.query(sql,new ResultSetExtractor<usuario_mascotaBean>(){
-
             @Override
             public usuario_mascotaBean extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if(rs.next()){
@@ -108,7 +114,6 @@ public class AdopcionDBController {
                 }
                 return user_masc;
             }
-        
         });
     }
 }
