@@ -116,4 +116,14 @@ public class AdopcionDBController {
             }
         });
     }
+    @RequestMapping(value = "updateAdopcion.htm",method = RequestMethod.POST)
+    public ModelAndView ActualizarAdopcion(
+            @ModelAttribute("adopcion") usuario_mascotaBean per_masform){
+            ModelAndView mav = new ModelAndView();
+            String sql = "update usuario_mascota set id_usuario = ?, id_mascota=?, fecha_de_adopcion = NOW() where id = ?";
+            jdbcTemplate.update(sql, per_masform.getId_usuario(), per_masform.getId_mascota(), per_masform.getId());
+            mav.addObject("adopcion", new usuario_mascotaBean());
+            mav.setViewName("redirect:/listaAdopcion.htm");
+            return mav; 
+    }
 }

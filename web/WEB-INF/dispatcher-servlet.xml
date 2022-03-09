@@ -28,6 +28,8 @@
                 <prop key="borrarPersona.htm">personasDBController</prop>
                 <prop key="updatePersona.htm">personasDBController</prop>
                 <prop key="listaPersonas.htm">personasDBController</prop>
+                <prop key="consultarPersonaId.htm">personasDBController</prop>
+                <prop key="vistaConsultaPersonaId.htm">personasDBController</prop>
                 <prop key="listaMascotas.htm">mascotasDBController</prop>
                 <prop key="addMascotas.htm">mascotasDBController</prop>
                 <prop key="borrarMascota.htm">mascotasDBController</prop>

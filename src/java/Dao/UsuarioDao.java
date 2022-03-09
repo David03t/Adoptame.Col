@@ -25,4 +25,11 @@ public class UsuarioDao {
         datos= this.jdbcTemplate.queryForList(sql);
         return datos;
     }
+    public List consultarUsuariosById(int id){
+        List user = new ArrayList();
+        this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
+        String sql = "select * from usuario where id = ?";
+        user = this.jdbcTemplate.queryForList(sql, id);
+        return user;
+    }
 }

@@ -30,26 +30,32 @@
     </head>
     <body style="background: #d1d1d1">
         <header style="position: fixed; top: 0 ; width: 100%; z-index: 2">
-            <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.htm">Adoptame</a>
                     <a class="navbar-brand" href="#">Acceder</a>
-                                    <%
-            if(daoBean.conecta()!=null){
-        %>
-        <p class="navbar-brand" style="margin-top: 15px">DB:<img src="<c:url value="public/images/true.png"/>" height="20px" width="20px"/></p> 
-        <%
-            }else{
-        %>
-       <p class="navbar-brand" style="margin-top: 15px">DB:<img src="<c:url value="public/images/false.png"/>" height="20px" width="30px"/></p> 
-        <%}%>
+                    <%
+                        if(daoBean.conecta()!=null){
+                    %>
+                    <p class="navbar-brand" style="margin-top: 15px">DB:<img src="<c:url value="public/images/true.png"/>" height="20px" width="20px"/></p> 
+                    <%
+                        }else{
+                    %>
+                   <p class="navbar-brand" style="margin-top: 15px">DB:<img src="<c:url value="public/images/false.png"/>" height="20px" width="30px"/></p> 
+                    <%}%>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="personas.htm">Usuarios</a>
+                            <li class="nav-item dropdown" style="display: flex">
+                                <a class="nav-link" style="padding-right: 0px" href="personas.htm">Personas</a><a style="padding-left: 0px"class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">:</a>
+                                 
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="consultarPersonaId.htm">Consultar Personas ID</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar Personas ID</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="mascotas.htm">Mascotas</a>

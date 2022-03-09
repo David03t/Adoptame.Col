@@ -1,5 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -9,7 +10,6 @@
         <title>Adoptame</title>
     </head>
 
-    <body style="background: #d1d1d1">
         
         <%@include file="views/header.jsp" %>
         
@@ -58,5 +58,5 @@
             </div>
         </main>
         <%@include file="views/footer.jsp" %>
-    </body>
+
 </html>

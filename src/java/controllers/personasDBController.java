@@ -6,6 +6,7 @@
 
 package controllers;
 
+import Dao.UsuarioDao;
 import Dao.conectarDB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import models.UsuarioBean;
 import models.UsuarioBeanValidation;
+import models.usuario_mascotaBean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -139,5 +141,26 @@ public class personasDBController {
             mav.setViewName("redirect:/listaPersonas.htm");
             return mav;
         } 
+    }
+    
+    @RequestMapping(value = "consultarPersonaId.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaId (){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaId");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaId.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaId (
+        @ModelAttribute ("persona") usuario_mascotaBean per_mas,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        int id = per_mas.getId();
+        mav.addObject("persona", user.consultarUsuariosById(id)); 
+        mav.setViewName ("views/vistaConsultaPersonaId");
+        return mav;
     }
 }
