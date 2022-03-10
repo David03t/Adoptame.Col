@@ -53,8 +53,14 @@
                                  
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="consultarPersonaId.htm">Consultar Personas ID</a></li>
-                                    <li><a class="dropdown-item" href="#">Consultar Personas ID</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaNombre.htm">Consultar Personas Nombre</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaApellido.htm">Consultar Personas Apellido</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaTelefono.htm">Consultar Personas Telefono</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaCorreo.htm">Consultar Personas Correo</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaEdad.htm">Consultar Personas Edad</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaDireccion.htm">Consultar Personas Direccion</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaCiudad.htm">Consultar Personas Ciudad</a></li>
+                                    <li><a class="dropdown-item" href="consultarPersonaGenero.htm">Consultar Personas Genero</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">

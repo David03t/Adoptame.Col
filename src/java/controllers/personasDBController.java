@@ -153,14 +153,174 @@ public class personasDBController {
     }
     @RequestMapping(value="consultarPersonaId.htm", method=RequestMethod.POST)
         public ModelAndView consultarPersonaId (
-        @ModelAttribute ("persona") usuario_mascotaBean per_mas,
+        @ModelAttribute ("persona") UsuarioBean per,
         BindingResult result,
         SessionStatus status){
         ModelAndView mav = new ModelAndView();
         UsuarioDao user= new UsuarioDao();
-        int id = per_mas.getId();
+        int id = per.getId();
         mav.addObject("persona", user.consultarUsuariosById(id)); 
-        mav.setViewName ("views/vistaConsultaPersonaId");
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaNombre.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaNombre (){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaNombre");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaNombre.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaNombre (
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String nombrep = per.getNombrep();
+        mav.addObject("persona", user.consultarUsuariosByNombre(nombrep)); 
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaApellido.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaApellido(){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaApellido");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaApellido.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaApellido(
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String apellidop = per.getApellidop();
+        mav.addObject("persona", user.consultarUsuariosByApellido(apellidop)); 
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaTelefono.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaTelefono(){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaTelefono");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaTelefono.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaTelefono(
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String telefonop = per.getTelefonop();
+        mav.addObject("persona", user.consultarUsuariosByTelefono(telefonop)); 
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaCorreo.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaCorreo(){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaCorreo");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaCorreo.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaCorreo(
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String correop = per.getCorreop();
+        mav.addObject("persona", user.consultarUsuariosByCorreo(correop)); 
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaEdad.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaEdad(){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaEdad");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaEdad.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaEdad(
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String edadp = per.getEdadp();
+        mav.addObject("persona", user.consultarUsuariosByEdad(edadp)); 
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaDireccion.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaDireccion(){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaDireccion");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaDireccion.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaDireccion(
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String direccionp = per.getDireccionp();
+        mav.addObject("persona", user.consultarUsuariosByDireccion(direccionp)); 
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaCiudad.htm", method = RequestMethod.GET)
+    public ModelAndView consultarPersonaCiudad(){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaCiudad");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaCiudad.htm", method=RequestMethod.POST)
+        public ModelAndView consultarPersonaCiudad(
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String ciudadp = per.getCiudadp();
+        mav.addObject("persona", user.consultarUsuariosByCiudad(ciudadp)); 
+        mav.setViewName ("views/vistaConsultaPersona");
+        return mav;
+    }
+    @RequestMapping(value = "consultarPersonaGenero.htm", method = RequestMethod.GET)
+    public ModelAndView consultarUsuariosGenero(){
+       ModelAndView mav = new ModelAndView();
+       UsuarioBean persona = new UsuarioBean();
+        mav.addObject("persona", persona);
+        mav.setViewName("views/consultarPersonaGenero");
+        return mav;
+    }
+    @RequestMapping(value="consultarPersonaGenero.htm", method=RequestMethod.POST)
+        public ModelAndView consultarUsuariosGenero(
+        @ModelAttribute ("persona") UsuarioBean per,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao user= new UsuarioDao();
+        String generop = per.getGenerop();
+        mav.addObject("persona", user.consultarUsuariosByGenero(generop)); 
+        mav.setViewName ("views/vistaConsultaPersona");
         return mav;
     }
 }

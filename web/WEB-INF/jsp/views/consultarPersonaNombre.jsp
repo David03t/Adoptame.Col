@@ -1,6 +1,6 @@
 <%-- 
-    Document   : consultarPersonaId
-    Created on : 7/03/2022, 09:05:39 AM
+    Document   : ConsultarPersonasNombre
+    Created on : 9/03/2022, 06:15:39 PM
     Author     : DAVID
 --%>
 
@@ -9,19 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta de Persona ID</title>
+        <title>Consulta de Persona Nombre</title>
     </head>
     <body>
-    <%@include file="header.jsp" %>
+        <%@include file="header.jsp" %>
         <main>
             <div class="container-lg" style="background: white;padding: 20px; border-radius: 30px">
                 <form:form commandName="persona">
                     <div class="mb-3" style="background: whitesmoke;padding: 20px;">
                         <div class="mb-3 row">
-                        <form:label path="id" cssClass="col-sm-2 col-form-label">ID:</form:label>
+                        <form:label path="nombrep" cssClass="col-sm-2 col-form-label">Nombre:</form:label>
                             <div class="col-sm-10">
-                            <form:input path="id" cssClass="form-control" placeholder="ingrese su ID"></form:input>
-                            <form:errors path='id' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            <form:input path="nombrep" cssClass="form-control" placeholder="ingrese su nombre"></form:input>
+                            <form:errors path='nombrep' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
                             </div>
                         </div>
                         <br>

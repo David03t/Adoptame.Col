@@ -44,7 +44,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
-                      <a class="btn btn-outline-secondary" href="personas.htm">Regresar</a>
+                      <a class="btn btn-outline-secondary" href="index.htm">Regresar</a>
             </div>
         <%@include file="footer.jsp" %>
     </body>

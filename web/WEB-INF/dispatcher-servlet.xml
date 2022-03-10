@@ -29,7 +29,15 @@
                 <prop key="updatePersona.htm">personasDBController</prop>
                 <prop key="listaPersonas.htm">personasDBController</prop>
                 <prop key="consultarPersonaId.htm">personasDBController</prop>
-                <prop key="vistaConsultaPersonaId.htm">personasDBController</prop>
+                <prop key="consultarPersonaNombre.htm">personasDBController</prop>
+                <prop key="consultarPersonaApellido.htm">personasDBController</prop>
+                <prop key="consultarPersonaTelefono.htm">personasDBController</prop>
+                <prop key="consultarPersonaCorreo.htm">personasDBController</prop>
+                <prop key="consultarPersonaEdad.htm">personasDBController</prop>
+                <prop key="consultarPersonaDireccion.htm">personasDBController</prop>
+                <prop key="consultarPersonaCiudad.htm">personasDBController</prop>
+                <prop key="consultarPersonaGenero.htm">personasDBController</prop>
+                <prop key="vistaConsultaPersona.htm">personasDBController</prop>
                 <prop key="listaMascotas.htm">mascotasDBController</prop>
                 <prop key="addMascotas.htm">mascotasDBController</prop>
                 <prop key="borrarMascota.htm">mascotasDBController</prop>
