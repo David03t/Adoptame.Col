@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listaMascotas
-    Created on : 24/02/2022, 08:11:54 AM
-    Author     : SENA
+    Document   : vistaConsultaMascota
+    Created on : 9/03/2022, 08:36:00 PM
+    Author     : DAVID
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,13 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listar Mascotas</title>
+        <title>Consulta Mascota</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
             <div class="container-lg" style="background: white;padding: 20px; border-radius: 30px">
                 <table class="formularios table">
-                    <a href="addMascotas.htm" class="btn btn-outline-primary" style="float: left; margin: 20px">Añadir</a>
                     <thead>
                       <tr>
                         <th scope="col">ID</th>
@@ -25,7 +24,6 @@
                         <th scope="col">EDAD</th>
                         <th scope="col">DESCRIPCION</th>
                         <th scope="col">GENERO</th>
-                        <th scope="col">OPCIONES</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -38,12 +36,11 @@
                         <td><c:out value="${mascotas.edad}" ></c:out></td>
                         <td><c:out value="${mascotas.descripcion}" ></c:out></td>
                         <td><c:out value="${mascotas.genero}"></c:out></td>
-                        <td><a href="updateMascota.htm?id=${mascotas.id}" class="btn btn-outline-warning">Modificar</a>  <a href="borrarMascota.htm?id=${mascotas.id}" class="btn btn-outline-danger">Eliminar</a></td>
                       </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-                      <a class="btn btn-outline-secondary" href="mascotas.htm">Regresar</a>
+                      <a class="btn btn-outline-secondary" href="index.htm">Regresar</a>
             </div>
         <%@include file="footer.jsp" %>
     </body>

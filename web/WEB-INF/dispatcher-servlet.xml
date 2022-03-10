@@ -41,6 +41,13 @@
                 <prop key="listaMascotas.htm">mascotasDBController</prop>
                 <prop key="addMascotas.htm">mascotasDBController</prop>
                 <prop key="borrarMascota.htm">mascotasDBController</prop>
+                <prop key="consultarMascotaId.htm">mascotasDBController</prop>
+                <prop key="consultarMascotaNombre.htm">mascotasDBController</prop>
+                <prop key="consultarMascotaCategoria.htm">mascotasDBController</prop>
+                <prop key="consultarMascotaRaza.htm">mascotasDBController</prop>
+                <prop key="consultarMascotaEdad.htm">mascotasDBController</prop>
+                <prop key="consultarMascotaDescripcion.htm">mascotasDBController</prop>
+                <prop key="consultarMascotaGenero.htm">mascotasDBController</prop>
                 <prop key="updateMascota.htm">mascotasDBController</prop>
                 <prop key="listaAdopcion.htm">AdopcionDBController</prop>
                 <prop key="addAdopcion.htm">AdopcionDBController</prop>

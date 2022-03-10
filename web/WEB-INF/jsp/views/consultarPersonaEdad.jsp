@@ -18,9 +18,9 @@
                 <form:form commandName="persona">
                     <div class="mb-3" style="background: whitesmoke;padding: 20px;">
                         <div class="mb-3 row">
-                        <form:label path="edadp" cssClass="col-sm-2 col-form-label">ID:</form:label>
+                        <form:label path="edadp" cssClass="col-sm-2 col-form-label">Edad:</form:label>
                             <div class="col-sm-10">
-                            <form:input path="edadp" cssClass="form-control" placeholder="ingrese su ID"></form:input>
+                            <form:input path="edadp" cssClass="form-control" placeholder="ingrese su Edad"></form:input>
                             <form:errors path='edadp' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
                             </div>
                         </div>

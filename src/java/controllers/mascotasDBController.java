@@ -7,6 +7,7 @@
 package controllers;
 
 import Dao.conectarDB;
+import Dao.mascotaDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -131,5 +132,145 @@ public class mascotasDBController {
             mav.setViewName("redirect:/listaMascotas.htm");
             return mav;
         } 
+    }
+    @RequestMapping(value = "consultarMascotaId.htm", method = RequestMethod.GET)
+    public ModelAndView consultarMascotasById (){
+       ModelAndView mav = new ModelAndView();
+       MascotaBean mascota = new MascotaBean();
+        mav.addObject("mascotas", mascota);
+        mav.setViewName("views/consultarMascotaId");
+        return mav;
+    }
+    @RequestMapping(value="consultarMascotaId.htm", method=RequestMethod.POST)
+        public ModelAndView consultarMascotasById (
+        @ModelAttribute ("mascotas") MascotaBean masc,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        mascotaDao mascota= new mascotaDao();
+        int id = masc.getId();
+        mav.addObject("mascotas", mascota.consultarMascotasById(id)); 
+        mav.setViewName ("views/vistaConsultaMascota");
+        return mav;
+    }
+    @RequestMapping(value = "consultarMascotaNombre.htm", method = RequestMethod.GET)
+    public ModelAndView consultarMascotasByNombre (){
+       ModelAndView mav = new ModelAndView();
+       MascotaBean mascota = new MascotaBean();
+        mav.addObject("mascotas", mascota);
+        mav.setViewName("views/consultarMascotaNombre");
+        return mav;
+    }
+    @RequestMapping(value="consultarMascotaNombre.htm", method=RequestMethod.POST)
+        public ModelAndView consultarMascotasByNombre (
+        @ModelAttribute ("mascotas") MascotaBean masc,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        mascotaDao mascota= new mascotaDao();
+        String nombre  = masc.getNombre();
+        mav.addObject("mascotas", mascota.consultarMascotasByNombre(nombre)); 
+        mav.setViewName ("views/vistaConsultaMascota");
+        return mav;
+    }
+    @RequestMapping(value = "consultarMascotaCategoria.htm", method = RequestMethod.GET)
+    public ModelAndView consultarMascotasByCategoria (){
+       ModelAndView mav = new ModelAndView();
+       MascotaBean mascota = new MascotaBean();
+        mav.addObject("mascotas", mascota);
+        mav.setViewName("views/consultarMascotaCategoria");
+        return mav;
+    }
+    @RequestMapping(value="consultarMascotaCategoria.htm", method=RequestMethod.POST)
+        public ModelAndView consultarMascotasByCategoria (
+        @ModelAttribute ("mascotas") MascotaBean masc,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        mascotaDao mascota= new mascotaDao();
+        String categoria = masc.getCategoria();
+        mav.addObject("mascotas", mascota.consultarMascotasByCategoria(categoria)); 
+        mav.setViewName ("views/vistaConsultaMascota");
+        return mav;
+    }
+    @RequestMapping(value = "consultarMascotaRaza.htm", method = RequestMethod.GET)
+    public ModelAndView consultarMascotasByRaza (){
+       ModelAndView mav = new ModelAndView();
+       MascotaBean mascota = new MascotaBean();
+        mav.addObject("mascotas", mascota);
+        mav.setViewName("views/consultarMascotaRaza");
+        return mav;
+    }
+    @RequestMapping(value="consultarMascotaRaza.htm", method=RequestMethod.POST)
+        public ModelAndView consultarMascotasByRaza (
+        @ModelAttribute ("mascotas") MascotaBean masc,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        mascotaDao mascota= new mascotaDao();
+        String raza = masc.getRaza();
+        mav.addObject("mascotas", mascota.consultarMascotasByRaza(raza)); 
+        mav.setViewName ("views/vistaConsultaMascota");
+        return mav;
+    }
+    @RequestMapping(value = "consultarMascotaEdad.htm", method = RequestMethod.GET)
+    public ModelAndView consultarMascotasByEdad (){
+       ModelAndView mav = new ModelAndView();
+       MascotaBean mascota = new MascotaBean();
+        mav.addObject("mascotas", mascota);
+        mav.setViewName("views/consultarMascotaEdad");
+        return mav;
+    }
+    @RequestMapping(value="consultarMascotaEdad.htm", method=RequestMethod.POST)
+        public ModelAndView consultarMascotasByEdad (
+        @ModelAttribute ("mascotas") MascotaBean masc,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        mascotaDao mascota= new mascotaDao();
+        String edad = masc.getEdad();
+        mav.addObject("mascotas", mascota.consultarMascotasByEdad(edad)); 
+        mav.setViewName ("views/vistaConsultaMascota");
+        return mav;
+    }
+    @RequestMapping(value = "consultarMascotaDescripcion.htm", method = RequestMethod.GET)
+    public ModelAndView consultarMascotasByDescripcion (){
+       ModelAndView mav = new ModelAndView();
+       MascotaBean mascota = new MascotaBean();
+        mav.addObject("mascotas", mascota);
+        mav.setViewName("views/consultarMascotaDescripcion");
+        return mav;
+    }
+    @RequestMapping(value="consultarMascotaDescripcion.htm", method=RequestMethod.POST)
+        public ModelAndView consultarMascotasByDescripcion (
+        @ModelAttribute ("mascotas") MascotaBean masc,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        mascotaDao mascota= new mascotaDao();
+        String descripcion = masc.getDescripcion();
+        mav.addObject("mascotas", mascota.consultarMascotasByDescripcion(descripcion)); 
+        mav.setViewName ("views/vistaConsultaMascota");
+        return mav;
+    }
+    @RequestMapping(value = "consultarMascotaGenero.htm", method = RequestMethod.GET)
+    public ModelAndView consultarMascotasByGenero (){
+       ModelAndView mav = new ModelAndView();
+       MascotaBean mascota = new MascotaBean();
+        mav.addObject("mascotas", mascota);
+        mav.setViewName("views/consultarMascotaGenero");
+        return mav;
+    }
+    @RequestMapping(value="consultarMascotaGenero.htm", method=RequestMethod.POST)
+        public ModelAndView consultarMascotasByGenero (
+        @ModelAttribute ("mascotas") MascotaBean masc,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        mascotaDao mascota= new mascotaDao();
+        String genero = masc.getGenero();
+        mav.addObject("mascotas", mascota.consultarMascotasByGenero(genero)); 
+        mav.setViewName ("views/vistaConsultaMascota");
+        return mav;
     }
 }

@@ -18,9 +18,9 @@
                 <form:form commandName="persona">
                     <div class="mb-3" style="background: whitesmoke;padding: 20px;">
                         <div class="mb-3 row">
-                        <form:label path="correop" cssClass="col-sm-2 col-form-label">ID:</form:label>
+                        <form:label path="correop" cssClass="col-sm-2 col-form-label">Correo:</form:label>
                             <div class="col-sm-10">
-                            <form:input path="correop" cssClass="form-control" placeholder="ingrese su ID"></form:input>
+                            <form:input path="correop" cssClass="form-control" placeholder="ingrese su Correo"></form:input>
                             <form:errors path='correop' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
                             </div>
                         </div>

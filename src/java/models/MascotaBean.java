@@ -93,7 +93,6 @@ public class MascotaBean {
     public void setGenero(String genero) {
         this.genero = genero;
     }
-    
 
-    
+   
 }

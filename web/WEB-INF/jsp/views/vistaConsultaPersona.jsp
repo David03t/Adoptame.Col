@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta Persona ID</title>
+        <title>Consulta Persona</title>
     </head>
     <body>
         <%@include file="header.jsp" %>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : consultarPersonaGenero
-    Created on : 9/03/2022, 07:46:00 PM
+    Document   : consultarMascotaGenero
+    Created on : 9/03/2022, 08:41:55 PM
     Author     : DAVID
 --%>
 
@@ -9,19 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta de Persona Genero</title>
+        <title>Consulta de Mascota Genero</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
         <main>
             <div class="container-lg" style="background: white;padding: 20px; border-radius: 30px">
-                <form:form commandName="persona">
+                <form:form commandName="mascotas">
                     <div class="mb-3" style="background: whitesmoke;padding: 20px;">
                         <div class="mb-3 row">
-                        <form:label path="generop" cssClass="col-sm-2 col-form-label">Genero:</form:label>
+                        <form:label path="genero" cssClass="col-sm-2 col-form-label">Genero:</form:label>
                             <div class="col-sm-10">
-                            <form:input path="generop" cssClass="form-control" placeholder="ingrese su Genero"></form:input>
-                            <form:errors path='generop' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
+                            <form:input path="genero" cssClass="form-control" placeholder="ingrese el genero"></form:input>
+                            <form:errors path='genero' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
                             </div>
                         </div>
                         <br>

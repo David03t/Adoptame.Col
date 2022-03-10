@@ -43,7 +43,7 @@ public class AdopcionDBController {
     @RequestMapping("listaAdopcion")
     public ModelAndView formAdopcion(){
         ModelAndView mav = new ModelAndView();
-        String sql = "select * from usuario_mascota";
+        String sql = "select a.id, u.nombrep, m.nombre, a.fecha_de_adopcion from usuario_mascota as a, usuario as u, mascota as m where u.id = a.id_usuario and m.id = a.id_mascota";
         List datos = jdbcTemplate.queryForList(sql);
         mav.addObject("adopcion", datos);
         mav.setViewName("views/listaAdopcion");
