@@ -53,6 +53,8 @@
                 <prop key="addAdopcion.htm">AdopcionDBController</prop>
                 <prop key="updateAdopcion.htm">AdopcionDBController</prop>
                 <prop key="borrarAdopcion.htm">AdopcionDBController</prop>
+                <prop key="consultarAdopcionId.htm">AdopcionDBController</prop>
+                <prop key="consultarAdopcionFecha.htm">AdopcionDBController</prop>
             </props>
         </property>
     </bean>

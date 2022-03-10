@@ -7,6 +7,7 @@
 package controllers;
 
 import Dao.UsuarioDao;
+import Dao.adopcionDao;
 import Dao.conectarDB;
 import Dao.mascotaDao;
 import java.sql.ResultSet;
@@ -126,4 +127,45 @@ public class AdopcionDBController {
             mav.setViewName("redirect:/listaAdopcion.htm");
             return mav; 
     }
+    @RequestMapping(value = "consultarAdopcionId.htm", method = RequestMethod.GET)
+    public ModelAndView consultarAdopcionId (){
+        ModelAndView mav = new ModelAndView();
+        usuario_mascotaBean adopcion = new usuario_mascotaBean();
+        mav.addObject("adopcion", adopcion);
+        mav.setViewName("views/consultarAdopcionId");
+        return mav;
+    }
+    @RequestMapping(value="consultarAdopcionId.htm", method=RequestMethod.POST)
+        public ModelAndView consultarAdopcionId (
+        @ModelAttribute ("adopcion") usuario_mascotaBean per_mas,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        adopcionDao adop= new adopcionDao();
+        int id = per_mas.getId();
+        mav.addObject("adopcion", adop.consultarAdopcionById(id)); 
+        mav.setViewName ("views/vistaConsultaAdopcion");
+        return mav;
+    }
+        @RequestMapping(value = "consultarAdopcionFecha.htm", method = RequestMethod.GET)
+    public ModelAndView consultarAdopcionFecha (){
+        ModelAndView mav = new ModelAndView();
+        usuario_mascotaBean adopcion = new usuario_mascotaBean();
+        mav.addObject("adopcion", adopcion);
+        mav.setViewName("views/consultarAdopcionFecha");
+        return mav;
+    }
+    @RequestMapping(value="consultarAdopcionFecha.htm", method=RequestMethod.POST)
+        public ModelAndView consultarAdopcionFecha (
+        @ModelAttribute ("adopcion") usuario_mascotaBean per_mas,
+        BindingResult result,
+        SessionStatus status){
+        ModelAndView mav = new ModelAndView();
+        adopcionDao adop= new adopcionDao();
+        String fecha = per_mas.getFecha_de_adopcion();
+        mav.addObject("adopcion", adop.consultarAdopcionByFecha(fecha)); 
+        mav.setViewName ("views/vistaConsultaAdopcion");
+        return mav;
+    }
+
 }

@@ -76,8 +76,13 @@
                                     <li><a class="dropdown-item" href="consultarMascotaGenero.htm">Consultar Mascotas Genero</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="adopcion.htm">Adopciones</a>
+                            <li class="nav-item dropdown" style="display: flex">
+                                <a class="nav-link" style="padding-right: 0px"  href="adopcion.htm">Adopciones</a><a style="padding-left: 0px"class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">:</a>
+                                 
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="consultarAdopcionId.htm">Consultar Adopcion ID</a></li>
+                                    <li><a class="dropdown-item" href="consultarAdopcionFecha.htm">Consultar Adopcion Fecha de Adopcion</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
