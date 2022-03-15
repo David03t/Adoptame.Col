@@ -15,7 +15,7 @@
         <%@include file="header.jsp" %>
         <main>
             <div class="container-lg" style="background: white;padding: 20px; border-radius: 30px">
-                <form:form commandName="adopcion">
+                <form:form commandName="adopcion" >
                     <div class="mb-3" style="background: whitesmoke;padding: 20px;">
                         <div class="mb-3 row">
                         <form:label path="id_usuario" cssClass="col-sm-2 col-form-label">Datos Adoptante:</form:label>

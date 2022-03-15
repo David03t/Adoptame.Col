@@ -25,6 +25,7 @@
                         <th scope="col">EDAD</th>
                         <th scope="col">DESCRIPCION</th>
                         <th scope="col">GENERO</th>
+                        <th scope="col">FOTO</th>
                         <th scope="col">OPCIONES</th>
                       </tr>
                     </thead>
@@ -38,7 +39,8 @@
                         <td><c:out value="${mascotas.edad}" ></c:out></td>
                         <td><c:out value="${mascotas.descripcion}" ></c:out></td>
                         <td><c:out value="${mascotas.genero}"></c:out></td>
-                        <td><a href="updateMascota.htm?id=${mascotas.id}" class="btn btn-outline-warning">Modificar</a>  <a href="borrarMascota.htm?id=${mascotas.id}" class="btn btn-outline-danger">Eliminar</a></td>
+                        <td><img width="50px" height="50px" src="<c:url value="${mascotas.foto}"></c:url>"></td>
+                        <td><a  href="updateMascota.htm?id=${mascotas.id}" class="btn btn-outline-warning">Modificar</a>  <a href="borrarMascota.htm?id=${mascotas.id}" class="btn btn-outline-danger">Eliminar</a></td>
                       </tr>
                         </c:forEach>
                     </tbody>

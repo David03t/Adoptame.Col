@@ -24,11 +24,12 @@ public class MascotaBean {
     private String edad;
     private String descripcion;
     private String genero;
+    private String foto;
 
     public MascotaBean() {
     }
 
-    public MascotaBean(int id, String nombre, String categoria, String raza, String edad, String descripcion, String genero) {
+    public MascotaBean(int id, String nombre, String categoria, String raza, String edad, String descripcion, String genero, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
@@ -36,7 +37,10 @@ public class MascotaBean {
         this.edad = edad;
         this.descripcion = descripcion;
         this.genero = genero;
+        this.foto = foto;
     }
+
+
 
     public int getId() {
         return id;
@@ -92,6 +96,14 @@ public class MascotaBean {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
    

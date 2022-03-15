@@ -25,11 +25,12 @@ public class UsuarioBean {
     private String direccionp;
     private String ciudadp;
     private String generop;
+    private String foto;
 
     public UsuarioBean() {
     }
 
-    public UsuarioBean(int id, String nombrep, String apellidop, String telefonop, String correop, String edadp, String direccionp, String ciudadp, String generop) {
+    public UsuarioBean(int id, String nombrep, String apellidop, String telefonop, String correop, String edadp, String direccionp, String ciudadp, String generop, String foto) {
         this.id = id;
         this.nombrep = nombrep;
         this.apellidop = apellidop;
@@ -39,7 +40,10 @@ public class UsuarioBean {
         this.direccionp = direccionp;
         this.ciudadp = ciudadp;
         this.generop = generop;
+        this.foto = foto;
     }
+
+    
 
     public int getId() {
         return id;
@@ -113,5 +117,11 @@ public class UsuarioBean {
         this.generop = generop;
     }
 
-     
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 }

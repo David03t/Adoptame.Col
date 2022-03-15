@@ -63,9 +63,5 @@ public class usuario_mascotaBean {
 
     public void setFecha_de_adopcion(String fecha_de_adopcion) {
         this.fecha_de_adopcion = fecha_de_adopcion;
-    }
-
-    
-
-    
+    }  
 }

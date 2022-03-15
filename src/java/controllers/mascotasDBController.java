@@ -8,12 +8,19 @@ package controllers;
 
 import Dao.conectarDB;
 import Dao.mascotaDao;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import models.MascotaBean;
 import models.MascotaBeanValidation;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -54,26 +61,52 @@ public class mascotasDBController {
         mav.setViewName("views/addMascotas");
         return mav;
     }
-    @RequestMapping(value = "addMascotas.htm",method = RequestMethod.POST)
-    public ModelAndView AddMascotas ( 
-            @ModelAttribute("mascotas") MascotaBean masform,
-            BindingResult result,
-            SessionStatus status){
-        this.vistamascotas.validate(masform, result);
-        if(result.hasErrors()){
+        @RequestMapping(value = "addMascotas.htm",method = RequestMethod.POST)
+    public ModelAndView AddMascotas (HttpServletRequest req){
+            MascotaBean masform = new MascotaBean();
             ModelAndView mav = new ModelAndView();
-            mav.addObject("mascotas", new MascotaBean());
-            mav.setViewName("views/addMascotas");
-            return mav;
-        }else{
-            ModelAndView mav = new ModelAndView();
-            String sql = "insert into mascota (nombre, categoria, raza, edad, descripcion, genero) "
-                + "values (?,?,?,?,?,?)";
-            jdbcTemplate.update(sql, masform.getNombre(), masform.getCategoria(), masform.getRaza(), masform.getEdad(),masform.getDescripcion(), masform.getGenero());
+            String uploadFilePath = req.getSession().getServletContext().getRealPath("../../web/images/mascota/");
+            boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+            ArrayList<String> Listado = new ArrayList<>();
+            if(isMultipart){
+                FileItemFactory file = new DiskFileItemFactory();
+                ServletFileUpload fileUpload = new ServletFileUpload(file);
+                List<FileItem> items = null;
+                try{
+                    items = fileUpload.parseRequest(req);
+                }catch(FileUploadException ex){
+                    System.out.print("Carga..." + ex.getMessage());
+                }
+                for (int i = 0; i < items.size(); i++){
+                    FileItem fileItem = (FileItem) items.get(i);
+                    if(!fileItem.isFormField()){
+                        File f = new File(fileItem.getName());
+                        String nameFile = ("images/mascota/"+ f.getName());
+                        File uploadFile = new File(uploadFilePath, f.getName());
+                        try{
+                            fileItem.write(uploadFile);
+                            
+                        }catch(Exception e){
+                            System.out.print("Escritura..." + e.getMessage());
+                        }
+                        masform.setFoto(nameFile);
+                    }else{
+                        Listado.add(fileItem.getString());
+                    }
+                }
+                masform.setNombre(Listado.get(0));
+                masform.setCategoria(Listado.get(1));
+                masform.setRaza(Listado.get(2));
+                masform.setEdad(Listado.get(3));
+                masform.setDescripcion(Listado.get(4));
+                masform.setGenero(Listado.get(5));
+            }
+            String sql = "insert into mascota (nombre, categoria, raza, edad, descripcion, genero,foto) "
+                + "values (?,?,?,?,?,?,?)";
+            jdbcTemplate.update(sql, masform.getNombre(), masform.getCategoria(), masform.getRaza(), masform.getEdad(),masform.getDescripcion(), masform.getGenero(), masform.getFoto());
             mav.addObject("mascotas", new MascotaBean());
             mav.setViewName("redirect:/listaMascotas.htm");
             return mav;
-        } 
     }
      @RequestMapping("borrarMascota.htm")
     public ModelAndView borrarMascota(HttpServletRequest req){
