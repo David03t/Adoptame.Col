@@ -29,6 +29,7 @@
                         <th scope="col">DIRECCION</th>
                         <th scope="col">CIUDAD</th>
                         <th scope="col">GENERO</th>
+                        <th scope="col">FOTO</th>
                         <th scope="col">OPCIONES</th>
                       </tr>
                     </thead>
@@ -44,7 +45,8 @@
                         <td><c:out value="${usuarios.direccionp}"></c:out></td>
                         <td><c:out value="${usuarios.ciudadp}" ></c:out></td>
                         <td><c:out value="${usuarios.generop}" ></c:out></td>
-                        <td><a href="updatePersona.htm?id=${usuarios.id}" class="btn btn-outline-warning">Modificar</a>  <a href="borrarPersona.htm?id=${usuarios.id}" class="btn btn-outline-danger">Eliminar</a></td>
+                         <td><img width="50px" height="50px" src="<c:url value="${usuarios.foto}"></c:url>"/></td>
+                        <td><a href="updatePersona.htm?id=${usuarios.id}&foto=${usuarios.foto}" class="btn btn-outline-warning">Modificar</a>  <a href="borrarPersona.htm?id=${usuarios.id}" class="btn btn-outline-danger">Eliminar</a></td>
                       </tr>
                         </c:forEach>
                     </tbody>

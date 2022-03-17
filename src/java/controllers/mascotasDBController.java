@@ -140,6 +140,7 @@ public class mascotasDBController {
                         mascota.setEdad(rs.getString("edad"));
                         mascota.setDescripcion(rs.getString("descripcion"));
                         mascota.setGenero(rs.getString("genero"));
+                        mascota.setFoto(rs.getString("foto"));
                     }
                     
                     return mascota;

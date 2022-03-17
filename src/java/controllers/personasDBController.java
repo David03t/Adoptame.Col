@@ -8,13 +8,20 @@ package controllers;
 
 import Dao.UsuarioDao;
 import Dao.conectarDB;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import models.UsuarioBean;
 import models.UsuarioBeanValidation;
 import models.usuario_mascotaBean;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -58,26 +65,76 @@ public class personasDBController {
 
 
     
-         @RequestMapping(value = "addPersonas.htm",method = RequestMethod.POST)
-    public ModelAndView AddUsuarios ( 
-            @ModelAttribute("persona") UsuarioBean perform,
-            BindingResult result,
-            SessionStatus status){
-        this.vistapersonas.validate(perform, result);
-        if(result.hasErrors()){
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("personas", new UsuarioBean());
-            mav.setViewName("views/addPersonas");
-            return mav;
-        }else{
-            ModelAndView mav = new ModelAndView();
-            String sql = "insert into usuario (nombrep, apellidop, telefonop, correop, edadp, direccionp, ciudadp, generop) "
-                + "values (?,?,?,?,?,?,?,?)";
-            jdbcTemplate.update(sql, perform.getNombrep(), perform.getApellidop(), perform.getTelefonop(), perform.getCorreop(),perform.getEdadp(), perform.getDireccionp(), perform.getCiudadp(), perform.getGenerop());
+//         @RequestMapping(value = "addPersonas.htm",method = RequestMethod.POST)
+//    public ModelAndView AddUsuarios ( 
+//            @ModelAttribute("persona") UsuarioBean perform,
+//            BindingResult result,
+//            SessionStatus status){
+//        this.vistapersonas.validate(perform, result);
+//        if(result.hasErrors()){
+//            ModelAndView mav = new ModelAndView();
+//            mav.addObject("personas", new UsuarioBean());
+//            mav.setViewName("views/addPersonas");
+//            return mav;
+//        }else{
+//            ModelAndView mav = new ModelAndView();
+//            String sql = "insert into usuario (nombrep, apellidop, telefonop, correop, edadp, direccionp, ciudadp, generop) "
+//                + "values (?,?,?,?,?,?,?,?)";
+//            jdbcTemplate.update(sql, perform.getNombrep(), perform.getApellidop(), perform.getTelefonop(), perform.getCorreop(),perform.getEdadp(), perform.getDireccionp(), perform.getCiudadp(), perform.getGenerop());
+//            mav.addObject("persona", new UsuarioBean());
+//            mav.setViewName("redirect:/listaPersonas.htm");
+//            return mav;
+//        } 
+//    }
+    @RequestMapping(value = "addPersonas.htm",method = RequestMethod.POST)
+    public ModelAndView AddUsuarios(HttpServletRequest req){
+        UsuarioBean user = new UsuarioBean();
+        ModelAndView mav = new ModelAndView();
+        String uploadFilePath = req.getSession().getServletContext().getRealPath("../../web/images/personas/");
+            boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+            ArrayList<String> Listado = new ArrayList<>();
+            if(isMultipart){
+                FileItemFactory file = new DiskFileItemFactory();
+                ServletFileUpload fileUpload = new ServletFileUpload(file);
+                List<FileItem> items = null;
+                try{
+                    items = fileUpload.parseRequest(req);
+                }catch(FileUploadException ex){
+                    System.out.print("Carga..." + ex.getMessage());
+                }
+                for (int i = 0; i < items.size(); i++){
+                    FileItem fileItem = (FileItem) items.get(i);
+                    if(!fileItem.isFormField()){
+                        File f = new File(fileItem.getName());
+                        String nameFile = ("images/personas/"+ f.getName());
+                        File uploadFile = new File(uploadFilePath, f.getName());
+                        try{
+                            fileItem.write(uploadFile);
+                                
+                        }catch(Exception e){
+                            System.out.print("Escritura..." + e.getMessage());
+                        }
+                        user.setFoto(nameFile);
+                    }else{
+                        Listado.add(fileItem.getString());
+                    }
+                    
+                }  
+                user.setNombrep(Listado.get(0));
+                    user.setApellidop(Listado.get(1));
+                    user.setTelefonop(Listado.get(2));
+                    user.setCorreop(Listado.get(3));
+                    user.setEdadp(Listado.get(4));
+                    user.setDireccionp(Listado.get(5));
+                    user.setCiudadp(Listado.get(6));
+                    user.setGenerop(Listado.get(7));
+            }
+            String sql = "insert into usuario (nombrep, apellidop, telefonop, correop, edadp, direccionp, ciudadp, generop, foto) "
+                + "values (?,?,?,?,?,?,?,?,?)";
+            jdbcTemplate.update(sql, user.getNombrep(), user.getApellidop(), user.getTelefonop(), user.getCorreop(),user.getEdadp(), user.getDireccionp(), user.getCiudadp(), user.getGenerop(), user.getFoto());
             mav.addObject("persona", new UsuarioBean());
             mav.setViewName("redirect:/listaPersonas.htm");
             return mav;
-        } 
     }
     
     
@@ -116,6 +173,7 @@ public class personasDBController {
                         usuario.setDireccionp(rs.getString("Direccionp"));
                         usuario.setCiudadp(rs.getString("Ciudadp"));
                         usuario.setGenerop(rs.getString("Generop"));
+                        usuario.setFoto(rs.getString("foto"));
                     }
                     
                     return usuario;

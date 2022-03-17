@@ -61,8 +61,8 @@
                             <form:errors path='genero' element="div" cssStyle="color: red; font-size : 10px; text-align: center"/>
                             </div>
                         </div>
-                            <div class="mb-3 row">
-                        <form:label path="foto" cssClass="col-sm-2 col-form-label">Genero:</form:label>
+                        <div class="mb-3 row">
+                        <form:label path="foto" cssClass="col-sm-2 col-form-label">Foto:</form:label>
                             <div class="col-sm-10">
                             <form:input path="foto" cssClass="form-control" placeholder="ingrese el genero de la Mascota" type="file"></form:input>
                             </div>
