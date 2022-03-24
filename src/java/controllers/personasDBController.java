@@ -146,9 +146,13 @@ public class personasDBController {
     @RequestMapping("borrarPersona.htm")
     public ModelAndView borrarPersona(HttpServletRequest req){
         ModelAndView mav = new ModelAndView();
+        UsuarioDao userDao = new UsuarioDao();
         int id = Integer.parseInt(req.getParameter("id"));
-        String sql = "delete from usuario where id = ?";
-        this.jdbcTemplate.update(sql,id);
+        String deletePath = req.getServletContext().getRealPath("")+ File.separator;
+        String foto = req.getParameter("foto");
+//        String sql = "delete from usuario where id = ?";
+//        this.jdbcTemplate.update(sql,id);
+        userDao
         mav.setViewName("redirect:/listaPersonas.htm");
         return mav;
     }
