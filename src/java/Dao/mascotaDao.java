@@ -81,7 +81,7 @@ public class mascotaDao {
         masc = this.jdbcTemplate.queryForList(sql, genero);
         return masc;
     }
-    public void updatePersonaSinFoto (MascotaBean masc, List lista) {
+    public void updateMascotaSinFoto (MascotaBean masc, List lista) {
         this.jdbcTemplate = new JdbcTemplate (conDB.conDB());
         ArrayList<String> Listado = new ArrayList<>();
         for (int i = 0; i < lista.size(); i++) {
@@ -99,7 +99,7 @@ public class mascotaDao {
             jdbcTemplate.update(sql, masc.getNombre(), masc.getCategoria(), masc.getRaza(), masc.getEdad(),masc.getDescripcion(), masc.getGenero(), masc.getId());
     }
     private static final String UPLOAD_DIRECTORY = "..\\..\\web\\images\\mascota";
-    public void updatePersonaConFoto (MascotaBean masc, boolean isMultipart,HttpServletRequest req, List items) {
+    public void updateMascotaConFoto (MascotaBean masc, boolean isMultipart,HttpServletRequest req, List items) {
         this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
         ArrayList<String> Listado = new ArrayList<>();
             if(isMultipart){
@@ -145,9 +145,23 @@ public class mascotaDao {
     public void borrarImagenActualizada(String foto, String deletePath){
         final String DELETE_DIRECTORY = "..\\..\\web\\";
         String deleteFile = deletePath + DELETE_DIRECTORY + foto;
+        System.out.print(deleteFile);
         File borrar = new File(deleteFile);
         if(borrar.delete()){
             System.out.print("borrado");
+        }else{
+            System.out.print("no se pudo borrar");
+        }
+    }
+    public void borrarImagen(String foto, String deletePath, int id){
+        final String DELETE_DIRECTORY = "..\\..\\web\\";
+        this.jdbcTemplate= new JdbcTemplate(conDB.conDB());
+        String deleteFile = deletePath + DELETE_DIRECTORY + foto;
+        File borrar = new File(deleteFile);
+        if(borrar.delete()){
+            System.out.print("borrado");
+            String sql = "delete from mascota where id = ?";
+            jdbcTemplate.update(sql,id);
         }else{
             System.out.print("no se pudo borrar");
         }

@@ -70,7 +70,7 @@
                         <div class="mb-3 row">
                         <form:label path="foto" cssClass="col-sm-2 col-form-label">Foto:</form:label>
                             <div class="col-sm-10">
-                                <img src="<c:url value="${mascotas.foto}"></c:url>" style="width: 40px; height: 40px"/>
+                                <img src="<c:url value="${mascotas.fotoOld}"></c:url>" style="width: 40px; height: 40px"/>
                             </div>
                         </div>
                         <br>

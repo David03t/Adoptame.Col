@@ -115,9 +115,11 @@ public class mascotasDBController {
      @RequestMapping("borrarMascota.htm")
     public ModelAndView borrarMascota(HttpServletRequest req){
         ModelAndView mav = new ModelAndView();
+        mascotaDao mascdao= new mascotaDao();
         int id = Integer.parseInt(req.getParameter("id"));
-        String sql = "delete from mascota where id = ?";
-        this.jdbcTemplate.update(sql,id);
+        String deletePath = req.getServletContext().getRealPath("")+ File.separator;
+        String foto = req.getParameter("foto");
+        mascdao.borrarImagen(foto, deletePath, id);
         mav.setViewName("redirect:/listaMascotas.htm");
         return mav;
     }
@@ -163,6 +165,7 @@ public class mascotasDBController {
             boolean isMultipart = ServletFileUpload.isMultipartContent(req);
             DiskFileItemFactory file = new DiskFileItemFactory();
             ServletFileUpload fileUpload = new ServletFileUpload(file);
+            
             List<FileItem> items = null;
             try{
             items = fileUpload.parseRequest(req);
@@ -174,11 +177,10 @@ public class mascotasDBController {
             System.out.print("error en la carga de la imagen ellenteController/updateCliente..." + ex.getMessage());
         }
             if(Listado.get(6).isEmpty() || Listado.get(6).equals("")|| Listado.get(6).equals(null)){
-                mascDao.updatePersonaSinFoto(masc,items);
+                mascDao.updateMascotaSinFoto(masc,items);
             }else{
-                mascDao.updatePersonaConFoto(masc, isMultipart, req, items);
+                mascDao.updateMascotaConFoto(masc, isMultipart, req, items);
 //                System.out.print("nada");
-     
             }
             mav.setViewName("redirect:/listaMascotas.htm");
             return mav;
