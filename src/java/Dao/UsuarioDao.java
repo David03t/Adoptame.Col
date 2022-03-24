@@ -29,7 +29,7 @@ public class UsuarioDao {
     public List ConsultarUsuariosAdopcion(){
         List datos = new ArrayList();
         this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
-        String sql= "Select * from usuario";
+        String sql= "select * from usuario where numero_adopciones <4";
         datos= this.jdbcTemplate.queryForList(sql);
         return datos;
     }
@@ -167,6 +167,19 @@ public class UsuarioDao {
         File borrar = new File(deleteFile);
         if(borrar.delete()){
             System.out.print("borrado");
+        }else{
+            System.out.print("no se pudo borrar");
+        }
+    }
+    public void borrarImagen(String foto, String deletePath, int id){
+        final String DELETE_DIRECTORY = "..\\..\\web\\";
+        this.jdbcTemplate= new JdbcTemplate(conDB.conDB());
+        String deleteFile = deletePath + DELETE_DIRECTORY + foto;
+        File borrar = new File(deleteFile);
+        if(borrar.delete()){
+            System.out.print("borrado");
+            String sql = "delete from usuario where id = ?";
+            jdbcTemplate.update(sql,id);
         }else{
             System.out.print("no se pudo borrar");
         }

@@ -28,7 +28,7 @@ public class mascotaDao {
     public List ConsultarMascotasAdopcion(){
         List datos = new ArrayList();
         this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
-        String sql= "Select * from mascota";
+        String sql= "Select * from mascota where estado = 0";
         datos = this.jdbcTemplate.queryForList(sql);
         return datos;
     }

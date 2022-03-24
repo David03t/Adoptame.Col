@@ -24,6 +24,8 @@
                         <th scope="col">EDAD</th>
                         <th scope="col">DESCRIPCION</th>
                         <th scope="col">GENERO</th>
+                        <th scope="col">Foto</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -36,6 +38,7 @@
                         <td><c:out value="${mascotas.edad}" ></c:out></td>
                         <td><c:out value="${mascotas.descripcion}" ></c:out></td>
                         <td><c:out value="${mascotas.genero}"></c:out></td>
+                         <td><img width="50px" height="50px" src="<c:url value="${mascotas.foto}"></c:url>"/></td>
                       </tr>
                         </c:forEach>
                     </tbody>

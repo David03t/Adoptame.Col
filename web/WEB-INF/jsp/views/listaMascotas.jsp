@@ -3,7 +3,7 @@
     Created on : 24/02/2022, 08:11:54 AM
     Author     : SENA
 --%>
-
+<%@page import="models.MascotaBean" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,7 +40,11 @@
                         <td><c:out value="${mascotas.descripcion}" ></c:out></td>
                         <td><c:out value="${mascotas.genero}"></c:out></td>
                         <td><img width="50px" height="50px" src="<c:url value="${mascotas.foto}"></c:url>"/></td>
-                        <td><a  href="updateMascota.htm?id=${mascotas.id}&fotoOld=${mascotas.foto}" class="btn btn-outline-warning">Modificar</a>  <a href="borrarMascota.htm?id=${mascotas.id}&foto=${mascotas.foto}" class="btn btn-outline-danger">Eliminar</a></td>
+                        <td><a  href="updateMascota.htm?id=${mascotas.id}&fotoOld=${mascotas.foto}" class="btn btn-outline-warning">Modificar</a>
+                            <c:if test="${mascotas.estado}">Ya tengo Hogar</c:if>
+                            <c:if test="${!mascotas.estado}">Aun busco Familia</c:if>
+                            
+                            <a href="borrarMascota.htm?id=${mascotas.id}&foto=${mascotas.foto}" class="btn btn-outline-danger">Eliminar</a></td>
                       </tr>
                         </c:forEach>
                     </tbody>

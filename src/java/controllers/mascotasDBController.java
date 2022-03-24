@@ -105,8 +105,8 @@ public class mascotasDBController {
                 masform.setDescripcion(Listado.get(4));
                 masform.setGenero(Listado.get(5));
             }
-            String sql = "insert into mascota (nombre, categoria, raza, edad, descripcion, genero,foto,fotoOld) "
-                + "values (?,?,?,?,?,?,?,?)";
+            String sql = "insert into mascota (nombre, categoria, raza, edad, descripcion, genero,foto,fotoOld, estado) "
+                + "values (?,?,?,?,?,?,?,?,0)";
             jdbcTemplate.update(sql, masform.getNombre(), masform.getCategoria(), masform.getRaza(), masform.getEdad(),masform.getDescripcion(), masform.getGenero(), masform.getFoto(),masform.getFoto());
             mav.addObject("mascotas", new MascotaBean());
             mav.setViewName("redirect:/listaMascotas.htm");

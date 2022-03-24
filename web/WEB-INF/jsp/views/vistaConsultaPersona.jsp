@@ -26,6 +26,7 @@
                         <th scope="col">DIRECCION</th>
                         <th scope="col">CIUDAD</th>
                         <th scope="col">GENERO</th>
+                        <th scope="col">FOTO</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -39,7 +40,8 @@
                         <td><c:out value="${persona.edadp}" ></c:out></td>
                         <td><c:out value="${persona.direccionp}"></c:out></td>
                         <td><c:out value="${persona.ciudadp}" ></c:out></td>
-                        <td><c:out value="${persona.generop}" ></c:out></td>
+                        <td><c:out value="${persona.generop}" ></c:out></td
+                        <td><img width="50px" height="50px" src="<c:url value="${usuarios.foto}"></c:url>"/></td>
                       </tr>
                         </c:forEach>
                     </tbody>

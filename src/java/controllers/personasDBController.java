@@ -152,7 +152,7 @@ public class personasDBController {
         String foto = req.getParameter("foto");
 //        String sql = "delete from usuario where id = ?";
 //        this.jdbcTemplate.update(sql,id);
-        userDao
+        userDao.borrarImagen(foto, deletePath,id);
         mav.setViewName("redirect:/listaPersonas.htm");
         return mav;
     }

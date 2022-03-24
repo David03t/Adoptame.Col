@@ -13,7 +13,7 @@
     </head>
         <br>
         <br>
-        <footer style="background: black ; position: fixed; bottom: 0; width: 100%">
+        <footer style="background: black ; position: fixed; bottom: 0; width: 100%; z-index: 4">
             <div class="container-lg" style="color: white;text-align: center">
                 <p>© 2022 Adoptame.com</p>
             </div>

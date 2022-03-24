@@ -29,8 +29,8 @@
                         <c:forEach items="${adopcion}" var="adopcion">    
                       <tr>
                         <td><c:out value="${adopcion.id}"></c:out></td>
-                        <td><c:out value="${adopcion.nombrep}"></c:out></td>
-                        <td><c:out value="${adopcion.nombre}"></c:out></td>
+                        <td><c:out value="${adopcion.nombrep}"></c:out>   <img width="50px" height="50px" src="<c:url value="${adopcion.fotoOld}"></c:url>"/></td>
+                        <td><c:out value="${adopcion.nombre}"></c:out>  <img width="50px" height="50px" src="<c:url value="${adopcion.foto}"></c:url>"/></td>
                         <td><c:out value="${adopcion.fecha_de_adopcion}"></c:out></td>
                         <td><a href="updateAdopcion.htm?id=${adopcion.id}" class="btn btn-outline-warning">Modificar</a>  <a href="borrarAdopcion.htm?id=${adopcion.id}" class="btn btn-outline-danger">Eliminar</a></td>
                       </tr>

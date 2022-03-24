@@ -44,7 +44,7 @@ public class AdopcionDBController {
     @RequestMapping("listaAdopcion")
     public ModelAndView formAdopcion(){
         ModelAndView mav = new ModelAndView();
-        String sql = "select a.id, u.nombrep, m.nombre, a.fecha_de_adopcion from usuario_mascota as a, usuario as u, mascota as m where u.id = a.id_usuario and m.id = a.id_mascota";
+        String sql = "select a.id, u.nombrep, u.fotoOld, m.nombre, m.foto, a.fecha_de_adopcion from usuario_mascota as a, usuario as u, mascota as m where u.id = a.id_usuario and m.id = a.id_mascota";
         List datos = jdbcTemplate.queryForList(sql);
         mav.addObject("adopcion", datos);
         mav.setViewName("views/listaAdopcion");
@@ -71,7 +71,10 @@ public class AdopcionDBController {
             ModelAndView mav = new ModelAndView();
             String sql = "insert into usuario_mascota (id_usuario, id_mascota) "
                 + "values (?,?)";
+            String sql2 = "update mascota set estado = 1 where id = ?";
+            String sql3 = "update usuario set numero_adopciones = +1 where id = ?";
             jdbcTemplate.update(sql, per_masform.getId_usuario(), per_masform.getId_mascota());
+            jdbcTemplate.update(sql2, per_masform.getId_mascota());
             mav.addObject("adopcion", new usuario_mascotaBean());
             mav.setViewName("redirect:/listaAdopcion.htm");
             return mav; 
