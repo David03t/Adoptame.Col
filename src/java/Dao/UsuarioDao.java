@@ -6,9 +6,17 @@
 
 package Dao;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import models.UsuarioBean;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.jdbc.core.JdbcTemplate;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 /**
  *
@@ -87,5 +95,80 @@ public class UsuarioDao {
         String sql = "select * from usuario where generop = ?";
         user = this.jdbcTemplate.queryForList(sql, generop);
         return user;
+    }
+    public void updatePersonaSinFoto (UsuarioBean user, List lista) {
+        this.jdbcTemplate = new JdbcTemplate (conDB.conDB());
+        ArrayList<String> Listado = new ArrayList<>();
+        for (int i = 0; i < lista.size(); i++) {
+            //System.out.println("error aca... "+ i + "-" + items.size());
+            FileItem fileItem = (FileItem) lista.get(i);
+            Listado.add(fileItem.getString());
+        }
+            user.setNombrep(Listado.get(0));
+            user.setApellidop(Listado.get(1));
+            user.setTelefonop(Listado.get(2));
+            user.setCorreop(Listado.get(3));
+            user.setEdadp(Listado.get(4));
+            user.setDireccionp(Listado.get(5));
+            user.setCiudadp(Listado.get(6));
+            user.setGenerop(Listado.get(7));
+            String sql = "update usuario set nombrep = ?, apellidop = ?, telefonop = ?, correop = ?, edadp = ?, direccionp = ?, ciudadp = ?, generop = ? where id  = ? ";
+            jdbcTemplate.update(sql, user.getNombrep(), user.getApellidop(), user.getTelefonop(), user.getCorreop(),user.getEdadp(), user.getDireccionp(), user.getCiudadp(), user.getGenerop(), user.getId());
+    }
+    private static final String UPLOAD_DIRECTORY = "..\\..\\web\\images\\personas";
+    public void updatePersonaConFoto (UsuarioBean user, boolean isMultipart,HttpServletRequest req, List items) {
+        this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
+        ArrayList<String> Listado = new ArrayList<>();
+            if(isMultipart){
+                DiskFileItemFactory file = new DiskFileItemFactory();
+                file.setRepository(new File(System.getProperty("java.io.tmpdir")));
+                ServletFileUpload fileUpload = new ServletFileUpload(file);
+                String uploadPath = req.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+                String deletePath = req.getServletContext().getRealPath("") + File.separator;
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()){
+                    uploadDir.mkdir();
+                }for (int i = 0; i < items.size(); i++){
+                    FileItem fileItem = (FileItem) items.get(i);
+                    if(!fileItem.isFormField()){
+                        String fileName = new File(fileItem.getName()).getName();
+                        String filePath = uploadPath + File.separator + "ID - " + Listado.get(0) + "" + fileName;
+                        File uploadFile = new File (filePath);
+                        String nameFile = ("images/personas/" + "ID - " + Listado.get(0) + "" + fileName);
+                        try{
+                            borrarImagenActualizada(user.getFotoOld(), deletePath);
+                            uploadFile.delete();
+                            fileItem.write(uploadFile);
+                            user.setFoto(nameFile);
+                        }catch(Exception e){
+                            System.out.print("Escritura..." + e.getMessage());
+                        }
+                        user.setFoto(nameFile);
+                    }else{
+                        Listado.add(fileItem.getString());
+                    }
+                    
+                }  
+                    user.setNombrep(Listado.get(0));
+                    user.setApellidop(Listado.get(1));
+                    user.setTelefonop(Listado.get(2));
+                    user.setCorreop(Listado.get(3));
+                    user.setEdadp(Listado.get(4));
+                    user.setDireccionp(Listado.get(5));
+                    user.setCiudadp(Listado.get(6));
+                    user.setGenerop(Listado.get(7));
+            }
+            String sql = "update usuario set nombrep = ?, apellidop = ?, telefonop = ?, correop = ?, edadp = ?, direccionp = ?, ciudadp = ?, generop = ?, foto = ? , fotoOld = ? where id  = ? ";
+            jdbcTemplate.update(sql, user.getNombrep(), user.getApellidop(), user.getTelefonop(), user.getCorreop(),user.getEdadp(), user.getDireccionp(), user.getCiudadp(), user.getGenerop(), user.getFoto(), user.getFoto(), user.getId());
+    }
+    public void borrarImagenActualizada(String foto, String deletePath){
+        final String DELETE_DIRECTORY = "..\\..\\web\\";
+        String deleteFile = deletePath + DELETE_DIRECTORY + foto;
+        File borrar = new File(deleteFile);
+        if(borrar.delete()){
+            System.out.print("borrado");
+        }else{
+            System.out.print("no se pudo borrar");
+        }
     }
 }

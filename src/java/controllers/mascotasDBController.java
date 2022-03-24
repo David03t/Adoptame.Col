@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import models.MascotaBean;
 import models.MascotaBeanValidation;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -61,17 +60,21 @@ public class mascotasDBController {
         mav.setViewName("views/addMascotas");
         return mav;
     }
+        private static final String UPLOAD_DIRECTORY = "..\\..\\web\\images\\mascota";
         @RequestMapping(value = "addMascotas.htm",method = RequestMethod.POST)
-    public ModelAndView AddMascotas (HttpServletRequest req){
-            MascotaBean masform = new MascotaBean();
+    public ModelAndView AddMascotas (MascotaBean masform, HttpServletRequest req){
             ModelAndView mav = new ModelAndView();
-            String uploadFilePath = req.getSession().getServletContext().getRealPath("../../web/images/mascota/");
             boolean isMultipart = ServletFileUpload.isMultipartContent(req);
             ArrayList<String> Listado = new ArrayList<>();
             if(isMultipart){
-                FileItemFactory file = new DiskFileItemFactory();
+                DiskFileItemFactory file = new DiskFileItemFactory();
                 ServletFileUpload fileUpload = new ServletFileUpload(file);
-                List<FileItem> items = null;
+                file.setRepository(new File(System.getProperty("java.io.tmpdir")));
+                String uploadPath = req.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()){
+                    uploadDir.mkdir();
+                }List<FileItem> items = null;
                 try{
                     items = fileUpload.parseRequest(req);
                 }catch(FileUploadException ex){
@@ -80,9 +83,10 @@ public class mascotasDBController {
                 for (int i = 0; i < items.size(); i++){
                     FileItem fileItem = (FileItem) items.get(i);
                     if(!fileItem.isFormField()){
-                        File f = new File(fileItem.getName());
-                        String nameFile = ("images/mascota/"+ f.getName());
-                        File uploadFile = new File(uploadFilePath, f.getName());
+                        String fileName = new File(fileItem.getName()).getName();
+                        String filePath = uploadPath + File.separator + "ID - " + Listado.get(0) + "" + fileName;
+                        File uploadFile = new File (filePath);
+                        String nameFile = ("images/mascota/" + "ID - " + Listado.get(0) + "" + fileName);
                         try{
                             fileItem.write(uploadFile);
                             
@@ -101,9 +105,9 @@ public class mascotasDBController {
                 masform.setDescripcion(Listado.get(4));
                 masform.setGenero(Listado.get(5));
             }
-            String sql = "insert into mascota (nombre, categoria, raza, edad, descripcion, genero,foto) "
-                + "values (?,?,?,?,?,?,?)";
-            jdbcTemplate.update(sql, masform.getNombre(), masform.getCategoria(), masform.getRaza(), masform.getEdad(),masform.getDescripcion(), masform.getGenero(), masform.getFoto());
+            String sql = "insert into mascota (nombre, categoria, raza, edad, descripcion, genero,foto,fotoOld) "
+                + "values (?,?,?,?,?,?,?,?)";
+            jdbcTemplate.update(sql, masform.getNombre(), masform.getCategoria(), masform.getRaza(), masform.getEdad(),masform.getDescripcion(), masform.getGenero(), masform.getFoto(),masform.getFoto());
             mav.addObject("mascotas", new MascotaBean());
             mav.setViewName("redirect:/listaMascotas.htm");
             return mav;
@@ -121,7 +125,9 @@ public class mascotasDBController {
     public ModelAndView actualizarMascota (HttpServletRequest req){
         ModelAndView mav = new ModelAndView();
         int id = Integer.parseInt(req.getParameter("id"));
+        String fotoOld = req.getParameter("fotoOld");
         MascotaBean mascota = consultarMascotaId (id);
+        mascota.setFotoOld(fotoOld);
         mav.addObject("mascotas", mascota);
         mav.setViewName("views/updateMascota");
         return mav;
@@ -148,24 +154,35 @@ public class mascotasDBController {
             }
         );
     }
+
     @RequestMapping(value = "updateMascota.htm",method = RequestMethod.POST)
-    public ModelAndView actualizarMascota ( 
-            @ModelAttribute("mascotas") MascotaBean masform,
-            BindingResult result,
-            SessionStatus status){
-        this.vistamascotas.validate(masform, result);
-        if(result.hasErrors()){
+    public ModelAndView actualizarMascota (MascotaBean masc, HttpServletRequest req ){
             ModelAndView mav = new ModelAndView();
-            mav.addObject("mascotas", new MascotaBean());
-            mav.setViewName("views/updateMascota");
-            return mav;
-        }else{
-            ModelAndView mav = new ModelAndView();
-            String sql = "update mascota set nombre = ?, categoria = ?, raza = ?, edad = ?, descripcion = ?, genero = ? where id  = ? ";
-            jdbcTemplate.update(sql, masform.getNombre(), masform.getCategoria(), masform.getRaza(), masform.getEdad(),masform.getDescripcion(), masform.getGenero(), masform.getId());
+            mascotaDao mascDao = new mascotaDao();
+            ArrayList<String> Listado = new ArrayList<>();
+            boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+            DiskFileItemFactory file = new DiskFileItemFactory();
+            ServletFileUpload fileUpload = new ServletFileUpload(file);
+            List<FileItem> items = null;
+            try{
+            items = fileUpload.parseRequest(req);
+            for (int i = 0; i < items.size(); i++){
+                FileItem fileItem = (FileItem) items.get(i);
+                Listado.add(fileItem.getString());
+            }
+        }catch(FileUploadException ex){
+            System.out.print("error en la carga de la imagen ellenteController/updateCliente..." + ex.getMessage());
+        }
+            if(Listado.get(6).isEmpty() || Listado.get(6).equals("")|| Listado.get(6).equals(null)){
+                mascDao.updatePersonaSinFoto(masc,items);
+            }else{
+                mascDao.updatePersonaConFoto(masc, isMultipart, req, items);
+//                System.out.print("nada");
+     
+            }
             mav.setViewName("redirect:/listaMascotas.htm");
             return mav;
-        } 
+        
     }
     @RequestMapping(value = "consultarMascotaId.htm", method = RequestMethod.GET)
     public ModelAndView consultarMascotasById (){

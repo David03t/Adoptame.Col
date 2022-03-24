@@ -18,7 +18,7 @@
                 <%@include file="header.jsp" %>
         <main>
             <div class="container-lg" style="background: white;padding: 20px; border-radius: 30px">
-                <form:form commandName="persona"enctype="multipart/form-data" method="post">
+                <form:form commandName="persona" enctype="multipart/form-data" method="post">
                     <div class="mb-3" style="background: whitesmoke;padding: 20px;">
                         <div class="mb-3 row">
                         <form:label path="nombrep" cssClass="col-sm-2 col-form-label">Nombre:</form:label>

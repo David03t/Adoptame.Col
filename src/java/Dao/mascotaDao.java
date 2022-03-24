@@ -6,8 +6,15 @@
 
 package Dao;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import models.MascotaBean;
+import models.UsuarioBean;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -73,5 +80,76 @@ public class mascotaDao {
         String sql = "select * from mascota where genero = ?";
         masc = this.jdbcTemplate.queryForList(sql, genero);
         return masc;
+    }
+    public void updatePersonaSinFoto (MascotaBean masc, List lista) {
+        this.jdbcTemplate = new JdbcTemplate (conDB.conDB());
+        ArrayList<String> Listado = new ArrayList<>();
+        for (int i = 0; i < lista.size(); i++) {
+            //System.out.println("error aca... "+ i + "-" + items.size());
+            FileItem fileItem = (FileItem) lista.get(i);
+            Listado.add(fileItem.getString());
+        }
+            masc.setNombre(Listado.get(0));
+            masc.setCategoria(Listado.get(1));
+            masc.setRaza(Listado.get(2));
+            masc.setEdad(Listado.get(3));
+            masc.setDescripcion(Listado.get(4));
+            masc.setGenero(Listado.get(5));
+            String sql = "update mascota set nombre = ?, categoria = ?, raza = ?, edad = ?, descripcion = ?, genero = ? where id  = ? ";
+            jdbcTemplate.update(sql, masc.getNombre(), masc.getCategoria(), masc.getRaza(), masc.getEdad(),masc.getDescripcion(), masc.getGenero(), masc.getId());
+    }
+    private static final String UPLOAD_DIRECTORY = "..\\..\\web\\images\\mascota";
+    public void updatePersonaConFoto (MascotaBean masc, boolean isMultipart,HttpServletRequest req, List items) {
+        this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
+        ArrayList<String> Listado = new ArrayList<>();
+            if(isMultipart){
+                DiskFileItemFactory file = new DiskFileItemFactory();
+                file.setRepository(new File(System.getProperty("java.io.tmpdir")));
+                ServletFileUpload fileUpload = new ServletFileUpload(file);
+                String uploadPath = req.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+                String deletePath = req.getServletContext().getRealPath("") + File.separator;
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()){
+                    uploadDir.mkdir();
+                }for (int i = 0; i < items.size(); i++){
+                    FileItem fileItem = (FileItem) items.get(i);
+                    if(!fileItem.isFormField()){
+                        String fileName = new File(fileItem.getName()).getName();
+                        String filePath = uploadPath + File.separator + "ID - " + Listado.get(0) + "" + fileName;
+                        File uploadFile = new File (filePath);
+                        String nameFile = ("images/mascota/" + "ID - " + Listado.get(0) + "" + fileName);
+                        try{
+                            borrarImagenActualizada(masc.getFotoOld(), deletePath);
+                            uploadFile.delete();
+                            fileItem.write(uploadFile);
+                            masc.setFoto(nameFile);
+                        }catch(Exception e){
+                            System.out.print("Escritura..." + e.getMessage());
+                        }
+                        masc.setFoto(nameFile);
+                    }else{
+                        Listado.add(fileItem.getString());
+                    }
+                    
+                }  
+                    masc.setNombre(Listado.get(0));
+                    masc.setCategoria(Listado.get(1));
+                    masc.setRaza(Listado.get(2));
+                    masc.setEdad(Listado.get(3));
+                    masc.setDescripcion(Listado.get(4));
+                    masc.setGenero(Listado.get(5));
+            }
+            String sql = "update mascota set nombre = ?, categoria = ?, raza = ?, edad = ?, descripcion = ?, genero = ?, foto = ? , fotoOld = ? where id  = ? ";
+            jdbcTemplate.update(sql, masc.getNombre(), masc.getCategoria(), masc.getRaza(), masc.getEdad(),masc.getDescripcion(), masc.getGenero(),masc.getFoto(),masc.getFoto(), masc.getId());
+    }
+    public void borrarImagenActualizada(String foto, String deletePath){
+        final String DELETE_DIRECTORY = "..\\..\\web\\";
+        String deleteFile = deletePath + DELETE_DIRECTORY + foto;
+        File borrar = new File(deleteFile);
+        if(borrar.delete()){
+            System.out.print("borrado");
+        }else{
+            System.out.print("no se pudo borrar");
+        }
     }
 }

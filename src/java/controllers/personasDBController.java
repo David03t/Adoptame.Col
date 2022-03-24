@@ -86,17 +86,21 @@ public class personasDBController {
 //            return mav;
 //        } 
 //    }
+     private static final String UPLOAD_DIRECTORY = "..\\..\\web\\images\\personas";
     @RequestMapping(value = "addPersonas.htm",method = RequestMethod.POST)
-    public ModelAndView AddUsuarios(HttpServletRequest req){
-        UsuarioBean user = new UsuarioBean();
+    public ModelAndView AddUsuarios(UsuarioBean user,HttpServletRequest req){
         ModelAndView mav = new ModelAndView();
-        String uploadFilePath = req.getSession().getServletContext().getRealPath("../../web/images/personas/");
             boolean isMultipart = ServletFileUpload.isMultipartContent(req);
             ArrayList<String> Listado = new ArrayList<>();
             if(isMultipart){
-                FileItemFactory file = new DiskFileItemFactory();
+                DiskFileItemFactory file = new DiskFileItemFactory();
                 ServletFileUpload fileUpload = new ServletFileUpload(file);
-                List<FileItem> items = null;
+                file.setRepository(new File(System.getProperty("java.io.tmpdir")));
+                String uploadPath = req.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()){
+                    uploadDir.mkdir();
+                }List<FileItem> items = null;
                 try{
                     items = fileUpload.parseRequest(req);
                 }catch(FileUploadException ex){
@@ -105,9 +109,10 @@ public class personasDBController {
                 for (int i = 0; i < items.size(); i++){
                     FileItem fileItem = (FileItem) items.get(i);
                     if(!fileItem.isFormField()){
-                        File f = new File(fileItem.getName());
-                        String nameFile = ("images/personas/"+ f.getName());
-                        File uploadFile = new File(uploadFilePath, f.getName());
+                        String fileName = new File(fileItem.getName()).getName();
+                        String filePath = uploadPath + File.separator + "ID - " + Listado.get(0) + "" + fileName;
+                        File uploadFile = new File (filePath);
+                        String nameFile = ("images/personas/" + "ID - " + Listado.get(0) + "" + fileName);
                         try{
                             fileItem.write(uploadFile);
                                 
@@ -120,7 +125,7 @@ public class personasDBController {
                     }
                     
                 }  
-                user.setNombrep(Listado.get(0));
+                    user.setNombrep(Listado.get(0));
                     user.setApellidop(Listado.get(1));
                     user.setTelefonop(Listado.get(2));
                     user.setCorreop(Listado.get(3));
@@ -129,9 +134,9 @@ public class personasDBController {
                     user.setCiudadp(Listado.get(6));
                     user.setGenerop(Listado.get(7));
             }
-            String sql = "insert into usuario (nombrep, apellidop, telefonop, correop, edadp, direccionp, ciudadp, generop, foto) "
-                + "values (?,?,?,?,?,?,?,?,?)";
-            jdbcTemplate.update(sql, user.getNombrep(), user.getApellidop(), user.getTelefonop(), user.getCorreop(),user.getEdadp(), user.getDireccionp(), user.getCiudadp(), user.getGenerop(), user.getFoto());
+            String sql = "insert into usuario (nombrep, apellidop, telefonop, correop, edadp, direccionp, ciudadp, generop, foto, fotoOld) "
+                + "values (?,?,?,?,?,?,?,?,?,?)";
+            jdbcTemplate.update(sql, user.getNombrep(), user.getApellidop(), user.getTelefonop(), user.getCorreop(),user.getEdadp(), user.getDireccionp(), user.getCiudadp(), user.getGenerop(), user.getFoto(), user.getFoto());
             mav.addObject("persona", new UsuarioBean());
             mav.setViewName("redirect:/listaPersonas.htm");
             return mav;
@@ -152,7 +157,9 @@ public class personasDBController {
     public ModelAndView actualizarPersona (HttpServletRequest req){
         ModelAndView mav = new ModelAndView();
         int id = Integer.parseInt(req.getParameter("id"));
+        String fotoOld = req.getParameter("fotoOld");
         UsuarioBean usuario = consultarUsuarioId (id);
+        usuario.setFotoOld(fotoOld);
         mav.addObject("persona", usuario);
         mav.setViewName("views/updatePersona");
         return mav;
@@ -181,25 +188,55 @@ public class personasDBController {
             }
         );
     }
+//    @RequestMapping(value = "updatePersona.htm",method = RequestMethod.POST)
+//    public ModelAndView actualizarPersona ( 
+//            @ModelAttribute("persona") UsuarioBean perform,
+//            BindingResult result,
+//            SessionStatus status){
+//        this.vistapersonas.validate(perform, result);
+//        if(result.hasErrors()){
+//            ModelAndView mav = new ModelAndView();
+//            mav.addObject("personas", new UsuarioBean());
+//            mav.setViewName("views/updatePersona");
+//            return mav;
+//        }else{
+//            ModelAndView mav = new ModelAndView();
+//            String sql = "update usuario set nombrep = ?, apellidop = ?, telefonop = ?, correop = ?, edadp = ?, direccionp = ?, ciudadp = ?, generop = ? where id  = ? ";
+//            jdbcTemplate.update(sql, perform.getNombrep(), perform.getApellidop(), perform.getTelefonop(), perform.getCorreop(),perform.getEdadp(), perform.getDireccionp(), perform.getCiudadp(), perform.getGenerop(), perform.getId());
+//            mav.setViewName("redirect:/listaPersonas.htm");
+//            return mav;
+//        } 
+//    }
     @RequestMapping(value = "updatePersona.htm",method = RequestMethod.POST)
-    public ModelAndView actualizarPersona ( 
-            @ModelAttribute("persona") UsuarioBean perform,
-            BindingResult result,
-            SessionStatus status){
-        this.vistapersonas.validate(perform, result);
-        if(result.hasErrors()){
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("personas", new UsuarioBean());
-            mav.setViewName("views/updatePersona");
-            return mav;
-        }else{
-            ModelAndView mav = new ModelAndView();
-            String sql = "update usuario set nombrep = ?, apellidop = ?, telefonop = ?, correop = ?, edadp = ?, direccionp = ?, ciudadp = ?, generop = ? where id  = ? ";
-            jdbcTemplate.update(sql, perform.getNombrep(), perform.getApellidop(), perform.getTelefonop(), perform.getCorreop(),perform.getEdadp(), perform.getDireccionp(), perform.getCiudadp(), perform.getGenerop(), perform.getId());
-            mav.setViewName("redirect:/listaPersonas.htm");
-            return mav;
-        } 
+    public ModelAndView actualizarPersona(UsuarioBean user, HttpServletRequest req){
+        ModelAndView mav = new ModelAndView();
+        UsuarioDao userDao = new UsuarioDao();
+        ArrayList<String> Listado = new ArrayList<>();
+        boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+        DiskFileItemFactory file = new DiskFileItemFactory();
+        ServletFileUpload fileUpload = new ServletFileUpload(file);
+        List<FileItem> items = null;
+        try{
+            items = fileUpload.parseRequest(req);
+            for (int i = 0; i < items.size(); i++){
+                FileItem fileItem = (FileItem) items.get(i);
+                Listado.add(fileItem.getString());
+            }
+        }catch(FileUploadException ex){
+            System.out.print("error en la carga de la imagen ellenteController/updateCliente..." + ex.getMessage());
+        }
+            if(Listado.get(8).isEmpty() || Listado.get(8).equals("")|| Listado.get(8).equals(null)){
+                userDao.updatePersonaSinFoto(user,items);
+            }else{
+                userDao.updatePersonaConFoto(user, isMultipart, req, items);
+//                System.out.print("nada");
+     
+            }
+        mav.setViewName("redirect:/listaPersonas.htm");
+        return mav;
     }
+    
+    
     
     @RequestMapping(value = "consultarPersonaId.htm", method = RequestMethod.GET)
     public ModelAndView consultarPersonaId (){
