@@ -72,9 +72,10 @@ public class AdopcionDBController {
             String sql = "insert into usuario_mascota (id_usuario, id_mascota) "
                 + "values (?,?)";
             String sql2 = "update mascota set estado = 1 where id = ?";
-            String sql3 = "update usuario set numero_adopciones = +1 where id = ?";
+            String sql3 = "update usuario set numero_adopciones = numero_adopciones +1 where id = ?";
             jdbcTemplate.update(sql, per_masform.getId_usuario(), per_masform.getId_mascota());
             jdbcTemplate.update(sql2, per_masform.getId_mascota());
+            jdbcTemplate.update(sql3, per_masform.getId_usuario());
             mav.addObject("adopcion", new usuario_mascotaBean());
             mav.setViewName("redirect:/listaAdopcion.htm");
             return mav; 

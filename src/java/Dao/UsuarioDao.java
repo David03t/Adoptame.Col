@@ -29,7 +29,7 @@ public class UsuarioDao {
     public List ConsultarUsuariosAdopcion(){
         List datos = new ArrayList();
         this.jdbcTemplate = new JdbcTemplate(conDB.conDB());
-        String sql= "select * from usuario where numero_adopciones <4";
+        String sql= "select * from usuario where numero_adopciones <3";
         datos= this.jdbcTemplate.queryForList(sql);
         return datos;
     }
